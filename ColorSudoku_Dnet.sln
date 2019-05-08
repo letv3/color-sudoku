@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorSudoku_Dnet", "ColorSudoku_Dnet\ColorSudoku_Dnet.csproj", "{DF6AD254-90D5-4E2B-B93F-8B57E58FD963}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorSudoku_Dnet", "ColorSudoku_Dnet\ColorSudoku_Dnet.csproj", "{DF6AD254-90D5-4E2B-B93F-8B57E58FD963}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorSudoku_TEST", "ColorSudoku_TEST\ColorSudoku_TEST.csproj", "{05934882-6BBB-40BA-BAA9-5A64176BBD8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorSudoku_WEB", "ColorSudoku_WEB\ColorSudoku_WEB.csproj", "{FFB04468-1308-467A-83BF-7D655AE5DEA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{DF6AD254-90D5-4E2B-B93F-8B57E58FD963}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF6AD254-90D5-4E2B-B93F-8B57E58FD963}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF6AD254-90D5-4E2B-B93F-8B57E58FD963}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05934882-6BBB-40BA-BAA9-5A64176BBD8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05934882-6BBB-40BA-BAA9-5A64176BBD8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05934882-6BBB-40BA-BAA9-5A64176BBD8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05934882-6BBB-40BA-BAA9-5A64176BBD8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFB04468-1308-467A-83BF-7D655AE5DEA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFB04468-1308-467A-83BF-7D655AE5DEA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFB04468-1308-467A-83BF-7D655AE5DEA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFB04468-1308-467A-83BF-7D655AE5DEA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

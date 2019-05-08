@@ -1,0 +1,163 @@
+﻿@using ColorSudoku_Dnet
+@using ColorSudoku_WEB.Models;
+@model SudokuModel
+
+@{
+    ViewData["Title"] = "Sudoku";
+}
+
+
+
+
+<h1>COLOR SUDOKU</h1>
+<a href="/index">New Game</a><br />
+
+GameState: @(Model.Field.State) <br />
+
+
+
+@if (Model.Field.State == GameState.SOLVED)
+{
+    <div class="win">
+        Congrats <span class="name">@(Model.LoggedUser)</span>,You WON!
+        Your score is @(Model.Field.GetScore())
+    </div>
+}
+
+
+@if (Model.LoggedUser == null)
+{
+    <div class="logging">
+        <form method="post" action="/sudoku/login" >
+            Login: <input name="login" type="text" required spellcheck="true"/>
+            <input type="submit" value="Login">
+        </form>
+
+
+    </div>
+}
+
+@if (Model.LoggedUser != null)
+{
+    <div class="managing">
+        <div class="logged">
+            You are logged as @(Model.LoggedUser)
+            <a href="/sudoku/logout">logout</a>
+        </div>
+
+
+        <div class="comment">
+            <form method="post" action="/sudoku/addComment">
+                Comment: <input name="comment" type="text" required spellcheck="true" />
+                <input type="submit" value="Add">
+            </form>
+        </div>
+
+        <div class="rating">
+            <form method="post" th:action="/sudoku/addRating">
+                <div class="rate">
+                    <input type="radio" id="star5" name="rating" value="5" />
+                    <label for="star5" title="text">5 stars</label>
+                    <input type="radio" id="star4" name="rating" value="4" />
+                    <label for="star4" title="text">4 stars</label>
+                    <input type="radio" id="star3" name="rating" value="3" />
+                    <label for="star3" title="text">3 stars</label>
+                    <input type="radio" id="star2" name="rating" value="2" />
+                    <label for="star2" title="text">2 stars</label>
+                    <input type="radio" id="star1" name="rating" value="1" />
+                    <label for="star1" title="text">1 star</label>
+                </div>
+                <input type="submit" value="Submit Rating" style="background-color: #c59b08">
+            </form>
+
+        </div>
+    </div>
+
+
+
+}
+
+@*Message: @(Model.Message) <br />*@
+
+
+<table class="field">
+    @for (var row = 0; row < Model.Field.RowCount; row++)
+    {
+        <tr>
+            @for (var column = 0; column < Model.Field.RowCount; column++)
+            {
+                var tile = Model.Field.GetTile(row, column);
+                var imageNumber = tile.GetImageName();
+
+
+
+                if (tile == null)
+                {
+                    <td />
+                }
+                else
+                {
+                    <td>
+                        @*<a href="/Sudoku/UpdateTile?value=@(CurrentValue)%row=@(row)%column=@(column)">*@
+                        <img src="/images/@(imageNumber).png" onclick='mark("@(row)/@(column)")' />
+                        @*</a>*@
+                    </td>
+                }
+            }
+        </tr>
+    }
+</table>
+
+<table>
+    <tr>
+
+        @for (var i = 0; i < Model.Field.RowCount; i++)
+        {
+
+            Tile tile = new Tile { Value = i + 1 };
+            var imageNumber = tile.GetImageName();
+            <td>
+                <img src="/images/@(imageNumber).png" onclick='setCurrentValue("@(tile.Value)")'>
+            </td>
+        }
+    </tr>
+
+
+
+</table>
+
+
+<div class="serviceTables">
+    <div class="scores">
+        Scores: <br />
+        <ol>
+            @foreach (var score in Model.Scores)
+            {
+                <li>@(score.Name) @(score.Points)</li>
+            }
+        </ol>
+    </div>
+
+    <div class="comments">
+        Comments: <br />
+        <ol>
+            @foreach (var comment in Model.Comments)
+            {
+                <li>@(comment.Name) @(comment.Message) @(comment.TimeOFComment)</li>
+            }
+        </ol>
+    </div>
+
+    <div class="rating">
+        Average Rating:
+        @for (int i = 1; i < Model.Rating; i++)
+        {
+            <span>★ </span>
+        }
+    </div>
+
+
+
+</div>
+
+

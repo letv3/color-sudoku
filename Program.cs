@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ColorSudoku_Dnet
+namespace Color_sudoku_DNet
 {
     class Program
     {
