@@ -20,62 +20,70 @@ GameState: @(Model.Field.State) <br />
 {
     <div class="win">
         Congrats <span class="name">@(Model.LoggedUser)</span>,You WON!
-        Your score is @(Model.Field.GetScore())
+        Your score is @(Model.Field.Score)
     </div>
 }
 
 
-@if (Model.LoggedUser == null)
-{
-    <div class="logging">
-        <form method="post" action="/sudoku/login" >
-            Login: <input name="login" type="text" required spellcheck="true"/>
-            <input type="submit" value="Login">
-        </form>
+    @if (Model.LoggedUser == null)
+        {
+            <div class="logging">
+                <form method="post" action="/sudoku/login" >
+                    Login: <input name="login" type="text" required spellcheck="true"/>
+                    <input type="submit" value="Login">
+                </form>
 
 
-    </div>
-}
+            </div>
+        }
 
-@if (Model.LoggedUser != null)
-{
-    <div class="managing">
-        <div class="logged">
-            You are logged as @(Model.LoggedUser)
-            <a href="/sudoku/logout">logout</a>
-        </div>
+    @if (Model.LoggedUser != null)
+     {
+        <div class="managing">
+            <div class="logged">
+                You are logged as @(Model.LoggedUser)
+                <a href="/sudoku/logout">logout</a>
+            </div>
 
-
-        <div class="comment">
-            <form method="post" action="/sudoku/addComment">
-                Comment: <input name="comment" type="text" required spellcheck="true" />
+    @*<div class="managing">
+        
+        <div class="name">
+            <form method="post" action="/sudoku/addName">
+                Comment: <input name="name" type="text" required spellcheck="true"/>
                 <input type="submit" value="Add">
             </form>
+        </div>*@
+
+            <div class="comment">
+                <form method="post" action="/sudoku/addComment">
+                    Comment: <input name="comment" type="text" required spellcheck="true"/>
+                    <input type="submit" value="Add">
+                </form>
+            </div>
+
+            <div class="rating">
+                <form method="post" th:action="/sudoku/addRating">
+                    <div class="rate">
+                        <input type="radio" id="star5" name="rating" value="5"/>
+                        <label for="star5" title="text">5 stars</label>
+                        <input type="radio" id="star4" name="rating" value="4"/>
+                        <label for="star4" title="text">4 stars</label>
+                        <input type="radio" id="star3" name="rating" value="3"/>
+                        <label for="star3" title="text">3 stars</label>
+                        <input type="radio" id="star2" name="rating" value="2"/>
+                        <label for="star2" title="text">2 stars</label>
+                        <input type="radio" id="star1" name="rating" value="1"/>
+                        <label for="star1" title="text">1 star</label>
+                    </div>
+                    <input type="submit" value="Submit Rating" style="background-color: #c59b08">
+                </form>
+
+            </div>
         </div>
-
-        <div class="rating">
-            <form method="post" th:action="/sudoku/addRating">
-                <div class="rate">
-                    <input type="radio" id="star5" name="rating" value="5" />
-                    <label for="star5" title="text">5 stars</label>
-                    <input type="radio" id="star4" name="rating" value="4" />
-                    <label for="star4" title="text">4 stars</label>
-                    <input type="radio" id="star3" name="rating" value="3" />
-                    <label for="star3" title="text">3 stars</label>
-                    <input type="radio" id="star2" name="rating" value="2" />
-                    <label for="star2" title="text">2 stars</label>
-                    <input type="radio" id="star1" name="rating" value="1" />
-                    <label for="star1" title="text">1 star</label>
-                </div>
-                <input type="submit" value="Submit Rating" style="background-color: #c59b08">
-            </form>
-
-        </div>
-    </div>
+     }
 
 
-
-}
+@* } *@
 
 @*Message: @(Model.Message) <br />*@
 

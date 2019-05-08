@@ -40,8 +40,8 @@ namespace ColorSudoku_WEB.Controllers
             //    Comments = _commentService.GetLastComments(),
             //    Rating = _ratingService.GetAverageRating()
             //};
-            updateModel(model);
 
+            updateModel(model);
             return View(model);
         }
 
@@ -52,8 +52,17 @@ namespace ColorSudoku_WEB.Controllers
             field.UpdateTile(value,row,column);
             HttpContext.Session.SetObject("field",field);
 
-           
-           updateModel(model);
+
+            //var model = new SudokuModel
+            //{
+            //    Field = field,
+            //    Message = "tile updated",
+            //    Scores = _scoreService.GetTopScores(),
+            //    Comments = _commentService.GetLastComments(),
+            //    Rating = _ratingService.GetAverageRating()
+            //};
+
+            updateModel(model);
 
 
             return View("Index", model);
@@ -65,15 +74,15 @@ namespace ColorSudoku_WEB.Controllers
         [HttpPost("/sudoku/login")]
         public IActionResult Login(string login)
         {
-            
+
             loggedUser = login;
-      
+
             field = (Field)HttpContext.Session.GetObject("field");
             HttpContext.Session.SetObject("field", field);
 
             updateModel(model);
-            
-            return View("Index",model);
+
+            return View("Index", model);
         }
 
         [Route("/sudoku/logout")]
@@ -83,20 +92,41 @@ namespace ColorSudoku_WEB.Controllers
             HttpContext.Session.SetObject("field", field);
             loggedUser = null;
             updateModel(model);
-           
-            return View("Index", model);
+
+            return RedirectToAction("Index", model);
         }
+
+        [HttpPost("/sudoku/addName")]
+        public IActionResult addName([FromForm] string name)
+        {
+            var field = (Field)HttpContext.Session.GetObject("field");
+            loggedUser = name;
+            _scoreService.AddScore(new Score
+            {
+                Name = loggedUser,
+                Points = field.Score,
+                TimeOfScore = DateTime.Now
+            });
+            HttpContext.Session.SetObject("field", field);
+            updateModel(model);
+
+            return RedirectToAction("Index", model);
+        }
+
+
 
         [HttpPost("/sudoku/addComment")]
         public IActionResult addComment([FromForm] string comment)
         {
             _commentService.AddComment(new Comment
             {
-                Name = model.LoggedUser,
+                Name = loggedUser,
                 Message = comment,
                 TimeOFComment = DateTime.Now
             });
-            return View("Index", model);
+            updateModel(model);
+            return RedirectToAction("Index", model);
+            
         }
 
         [HttpPost("/sudoku/addRating")]
@@ -104,11 +134,13 @@ namespace ColorSudoku_WEB.Controllers
         {
             _ratingService.AddRating(new Rating
             {
-                Name = model.LoggedUser,
+                Name = loggedUser,
                 Mark = rating,
                 TimeOfRating = DateTime.Now
             });
-            return View("Index", model);
+            updateModel(model);
+            return RedirectToAction("Index", model);
+           
         }
 
 

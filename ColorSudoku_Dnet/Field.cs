@@ -33,7 +33,7 @@ namespace ColorSudoku_Dnet
         {
             SolvedField = GenerateSolvedField(new Tile[RowCount][]);
             
-            PreparedField = PrepareField(Copy(SolvedField), 80);
+            PreparedField = PrepareField(Copy(SolvedField),79 );
 
         }
 
